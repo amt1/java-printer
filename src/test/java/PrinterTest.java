@@ -26,8 +26,8 @@ public class PrinterTest {
     @Test
     public void canFillPaper(){
         printer.fillPaper();
-        assertEquals(10, printer.getPaperLeft());
-       // assertEquals(100, printer.getPaperLeft());
+      //  assertEquals(10, printer.getPaperLeft());
+        assertEquals(100, printer.getPaperLeft());
 
     }
 
@@ -40,8 +40,6 @@ public class PrinterTest {
     }
 
     @Test
-    @Ignore
-
     public void canPrintPage(){
         printer.fillToner();
         printer.fillPaper();
@@ -50,7 +48,6 @@ public class PrinterTest {
     }
 
     @Test
-    @Ignore
     public void onlyPrintIfEnoughPaper() {
         printer.fillPaper();
         printer.printCopies(1,101);
@@ -58,7 +55,6 @@ public class PrinterTest {
     }
 
     @Test
-    @Ignore
 
     public void printIfEnoughPaper() {
         printer.fillPaper();
@@ -66,6 +62,9 @@ public class PrinterTest {
         printer.printCopies(5,2);
         assertEquals(90, printer.getPaperLeft());
     }
+
+    // last 2 tests (following) are for modifications beyond the spec:
+
     @Test
     @Ignore
     public void stopIfOutOfToner() {
@@ -76,6 +75,7 @@ public class PrinterTest {
     }
 
     @Test
+    @Ignore
     public void stopIfOutOfPaper() {
         printer.fillPaper(); // max set to 10 for this
         printer.fillToner(); // max set to 100 for this
