@@ -1,4 +1,5 @@
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -31,7 +32,9 @@ public class PrinterTest {
     @Test
     public void canFillToner(){
         printer.fillToner();
-        assertEquals(100, printer.getTonerLeft());
+     //   assertEquals(100, printer.getTonerLeft());
+        assertEquals(10, printer.getTonerLeft());
+
     }
 
     @Test
@@ -39,13 +42,29 @@ public class PrinterTest {
         printer.fillToner();
         printer.fillPaper();
         printer.printPage();
-        assertEquals(99, printer.getTonerLeft());
+        assertEquals(99, printer.getPaperLeft());
     }
 
     @Test
+    @Ignore
     public void onlyPrintIfEnoughPaper() {
         printer.fillPaper();
         printer.printCopies(1,101);
         assertEquals(100, printer.getPaperLeft());
+    }
+
+    @Test
+    public void printIfEnoughPaper() {
+        printer.fillPaper();
+        printer.fillToner();
+        printer.printCopies(5,2);
+        assertEquals(90, printer.getPaperLeft());
+    }
+    @Test
+    public void stopIfOutOfToner() {
+        printer.fillPaper();
+        printer.fillToner(); // max set to 10 for this
+        printer.printCopies(6,2);
+        assertEquals(90, printer.getPaperLeft());
     }
 }

@@ -10,7 +10,9 @@ public class Printer {
         this.paperLeft = 0;
         this.tonerLeft = 0;
         this.paperFillLevel = 100;
-        this.tonerFillLevel = 100;
+       // this.tonerFillLevel = 100;
+        this.tonerFillLevel = 10;
+
     }
 
     public short getPaperLeft() {
@@ -46,23 +48,21 @@ public class Printer {
         boolean printedAll = true;
         if (totalPages > paperLeft) {
             msg += "Not enough paper: job needs " + totalPages + " and there are only " + paperLeft + " left.";
-
+            resultCode = 4;
             printedAll = false;
+        } // this meets the spec of not printing at all if there isn't enough paper
+        else { // allowing easy modification for an alternative where it partly prints
+            do {
+                if (printPage()) {
+                    counter++;
+                } else {
+                    if (paperLeft < 1) resultCode += 1;
+                    if (tonerLeft < 1) resultCode += 2;
+                    printedAll = false;
+                }
+            } while ((counter < totalPages) && (resultCode == 0));
         }
-//        else {
-//            do {
-//                if (printPage()) {
-//                    counter++;
-//                } else {
-//                    msg += "Printing Error. ";
-//                    if (paperLeft > 0)
-//                        msg += "Out of Paper. ";
-//                    else
-//                        msg += "Out of Toner. ";
-//                    printedAll = false;
-//                }
-//            } while (counter < totalPages); // this loop needs a major rethink
-//        }
+        if (resultCode < 4) msg = resultMsgs[resultCode];
         System.out.println(msg);
         return printedAll;
     }
