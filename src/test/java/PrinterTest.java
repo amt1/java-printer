@@ -16,4 +16,36 @@ public class PrinterTest {
     public void hasPaperAmount(){
         assertEquals(0, printer.getPaperLeft());
     }
+
+    @Test
+    public void hasTonerAmount(){
+        assertEquals(0, printer.getTonerLeft());
+    }
+
+    @Test
+    public void canFillPaper(){
+        printer.fillPaper();
+        assertEquals(100, printer.getPaperLeft());
+    }
+
+    @Test
+    public void canFillToner(){
+        printer.fillToner();
+        assertEquals(100, printer.getTonerLeft());
+    }
+
+    @Test
+    public void canPrintPage(){
+        printer.fillToner();
+        printer.fillPaper();
+        printer.printPage();
+        assertEquals(99, printer.getTonerLeft());
+    }
+
+    @Test
+    public void onlyPrintIfEnoughPaper() {
+        printer.fillPaper();
+        printer.printCopies(1,101);
+        assertEquals(100, printer.getPaperLeft());
+    }
 }
