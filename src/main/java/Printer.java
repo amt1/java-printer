@@ -9,9 +9,11 @@ public class Printer {
     public Printer() {
         this.paperLeft = 0;
         this.tonerLeft = 0;
-        this.paperFillLevel = 100;
-       // this.tonerFillLevel = 100;
-        this.tonerFillLevel = 10;
+       // this.paperFillLevel = 100;
+        this.paperFillLevel = 10;
+
+        this.tonerFillLevel = 100;
+       // this.tonerFillLevel = 10;
 
     }
 
@@ -46,12 +48,12 @@ public class Printer {
         short counter = 0;
         String msg = "";
         boolean printedAll = true;
-        if (totalPages > paperLeft) {
-            msg += "Not enough paper: job needs " + totalPages + " and there are only " + paperLeft + " left.";
-            resultCode = 4;
-            printedAll = false;
-        } // this meets the spec of not printing at all if there isn't enough paper
-        else { // allowing easy modification for an alternative where it partly prints
+//        if (totalPages > paperLeft) {
+//            msg += "Not enough paper: job needs " + totalPages + " and there are only " + paperLeft + " left.";
+//            resultCode = 4;
+//            printedAll = false;
+//        } // this meets the spec of not printing at all if there isn't enough paper
+//        else { // allowing easy modification for an alternative where it partly prints
             do {
                 if (printPage()) {
                     counter++;
@@ -61,7 +63,7 @@ public class Printer {
                     printedAll = false;
                 }
             } while ((counter < totalPages) && (resultCode == 0));
-        }
+   //     }
         if (resultCode < 4) msg = resultMsgs[resultCode];
         System.out.println(msg);
         return printedAll;
